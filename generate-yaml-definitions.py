@@ -36,13 +36,15 @@ def main(argv):
     
     
     for line in vocabInput.read().splitlines():
+        try:
+            #print (str(vb.meaning(line)))
+            vocabDefDict = json.loads(vb.meaning(line))
+            yamlOut.write("\n-")
+            yamlOut.write("\n topic: " + line)
+            yamlOut.write("\n content: " + str(vocabDefDict[0]['text']))
         
-        vocabDefDict = json.loads(vb.meaning(line))
-        yamlOut.write("\n-")
-        yamlOut.write("\n topic: " + line)
-        yamlOut.write("\n content: " + str(vocabDefDict[0]['text']))
-        
-        
+        except:
+            yamlOut.write("\n content: " + "error")
         #print (vocabDefDict[0]['text'])
     yamlOut.close()
 
