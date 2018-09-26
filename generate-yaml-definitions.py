@@ -3,6 +3,7 @@
 from vocabulary.vocabulary import Vocabulary as vb
 import sys, getopt
 import json
+import html
 
 
 def usage():
@@ -37,13 +38,16 @@ def main(argv):
     
     for line in vocabInput.read().splitlines():
         try:
-            #print (str(vb.meaning(line)))
-            vocabDefDict = json.loads(vb.meaning(line))
+            print (str(line))
+            vocabDefDict = json.loads(html.unescape(vb.meaning(line)))
             yamlOut.write("\n-")
             yamlOut.write("\n topic: " + line)
-            yamlOut.write("\n content: " + str(vocabDefDict[0]['text']))
+            yamlOut.write("\n content: " + vocabDefDict[0]['text'])
         
         except:
+            print ("error:" str(line))
+            yamlOut.write("\n-")
+            yamlOut.write("\n topic: " + line)
             yamlOut.write("\n content: " + "error")
         #print (vocabDefDict[0]['text'])
     yamlOut.close()
