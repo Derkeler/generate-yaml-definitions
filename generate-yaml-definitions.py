@@ -3,6 +3,7 @@
 from vocabulary.vocabulary import Vocabulary as vb
 import sys, getopt, htmllib
 import json
+import html
 
 
 def usage():
