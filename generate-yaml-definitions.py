@@ -51,7 +51,17 @@ def main(argv):
         yamlOut.write("\n topic: " + line.strip())
         print line
         vocabDefDict = json.loads(vb.meaning(line.strip()))
-        yamlOut.write("\n content: " + fix(str(vocabDefDict[0]['text'])))
+        defs = [x['text'] for x in vocabDefDict]
+        for i in range(len(defs)):
+            try:
+                print str(i) + ": " + defs[i]
+            except:
+                print 'oops'
+        selection = str(raw_input("Defs to include:"))
+        selection = [int(x) for x in selection.split(' ') if x.isdigit()]
+        defs = [fix(defs[x]) for x in selection]
+        defs = ' --- '.join(defs)
+        yamlOut.write("\n content: " + defs)
         # except Exception:
         #     yamlOut.write("\n content: " + "error")
         #     # exc_type, exc_value, exc_traceback = sys.exc_info()
